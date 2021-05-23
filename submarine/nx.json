@@ -1,0 +1,46 @@
+{
+  "implicitDependencies": {
+    "package.json": {
+      "dependencies": "*",
+      "devDependencies": "*"
+    },
+    ".eslintrc.json": "*"
+  },
+  "affected": {
+    "defaultBase": "master"
+  },
+  "npmScope": "submarine",
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "@nrwl/workspace/tasks-runners/default",
+      "options": {
+        "cacheableOperations": ["build", "lint", "test", "e2e"]
+      }
+    }
+  },
+  "projects": {
+    "officer": {
+      "tags": []
+    },
+    "officer-e2e": {
+      "tags": [],
+      "implicitDependencies": ["officer"]
+    },
+    "recruiter": {
+      "tags": []
+    },
+    "recruiter-e2e": {
+      "tags": [],
+      "implicitDependencies": ["recruiter"]
+    },
+    "recruiter-recruiter-dashboard": {
+      "tags": []
+    },
+    "recruiter-dashboard": {
+      "tags": []
+    },
+    "ui": {
+      "tags": []
+    }
+  }
+}

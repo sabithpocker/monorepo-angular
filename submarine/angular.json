@@ -1,0 +1,343 @@
+{
+  "version": 1,
+  "cli": {
+    "defaultCollection": "@nrwl/angular"
+  },
+  "defaultProject": "officer",
+  "schematics": {
+    "@nrwl/angular": {
+      "application": {
+        "linter": "eslint"
+      },
+      "library": {
+        "linter": "eslint"
+      },
+      "storybook-configuration": {
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/angular:application": {
+      "style": "css",
+      "linter": "eslint",
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "style": "css",
+      "linter": "eslint",
+      "unitTestRunner": "jest",
+      "strict": false
+    },
+    "@nrwl/angular:component": {
+      "style": "css"
+    }
+  },
+  "projects": {
+    "officer": {
+      "projectType": "application",
+      "root": "apps/officer",
+      "sourceRoot": "apps/officer/src",
+      "prefix": "submarine",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/officer",
+            "index": "apps/officer/src/index.html",
+            "main": "apps/officer/src/main.ts",
+            "polyfills": "apps/officer/src/polyfills.ts",
+            "tsConfig": "apps/officer/tsconfig.app.json",
+            "assets": [
+              "apps/officer/src/favicon.ico",
+              "apps/officer/src/assets"
+            ],
+            "styles": ["apps/officer/src/styles.css"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "apps/officer/src/environments/environment.ts",
+                  "with": "apps/officer/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "officer:build:production"
+            },
+            "development": {
+              "browserTarget": "officer:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "officer:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/officer/src/**/*.ts",
+              "apps/officer/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/officer"],
+          "options": {
+            "jestConfig": "apps/officer/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "officer-e2e": {
+      "root": "apps/officer-e2e",
+      "sourceRoot": "apps/officer-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/officer-e2e/cypress.json",
+            "tsConfig": "apps/officer-e2e/tsconfig.e2e.json",
+            "devServerTarget": "officer:serve:development"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "officer:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/officer-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    },
+    "recruiter": {
+      "projectType": "application",
+      "root": "apps/recruiter",
+      "sourceRoot": "apps/recruiter/src",
+      "prefix": "submarine",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/recruiter",
+            "index": "apps/recruiter/src/index.html",
+            "main": "apps/recruiter/src/main.ts",
+            "polyfills": "apps/recruiter/src/polyfills.ts",
+            "tsConfig": "apps/recruiter/tsconfig.app.json",
+            "assets": [
+              "apps/recruiter/src/favicon.ico",
+              "apps/recruiter/src/assets"
+            ],
+            "styles": ["apps/recruiter/src/styles.css"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "apps/recruiter/src/environments/environment.ts",
+                  "with": "apps/recruiter/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "recruiter:build:production"
+            },
+            "development": {
+              "browserTarget": "recruiter:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "recruiter:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/recruiter/src/**/*.ts",
+              "apps/recruiter/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/recruiter"],
+          "options": {
+            "jestConfig": "apps/recruiter/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "recruiter-e2e": {
+      "root": "apps/recruiter-e2e",
+      "sourceRoot": "apps/recruiter-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/recruiter-e2e/cypress.json",
+            "tsConfig": "apps/recruiter-e2e/tsconfig.e2e.json",
+            "devServerTarget": "recruiter:serve:development"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "recruiter:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/recruiter-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    },
+    "recruiter-recruiter-dashboard": {
+      "projectType": "library",
+      "root": "libs/recruiter/recruiter-dashboard",
+      "sourceRoot": "libs/recruiter/recruiter-dashboard/src",
+      "prefix": "submarine",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/recruiter/recruiter-dashboard"],
+          "options": {
+            "jestConfig": "libs/recruiter/recruiter-dashboard/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/recruiter/recruiter-dashboard/src/**/*.ts",
+              "libs/recruiter/recruiter-dashboard/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "recruiter-dashboard": {
+      "projectType": "library",
+      "root": "libs/recruiter/dashboard",
+      "sourceRoot": "libs/recruiter/dashboard/src",
+      "prefix": "submarine",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/recruiter/dashboard"],
+          "options": {
+            "jestConfig": "libs/recruiter/dashboard/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/recruiter/dashboard/src/**/*.ts",
+              "libs/recruiter/dashboard/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "ui": {
+      "projectType": "library",
+      "root": "libs/ui",
+      "sourceRoot": "libs/ui/src",
+      "prefix": "submarine",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/ui"],
+          "options": {
+            "jestConfig": "libs/ui/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/ui/src/**/*.ts", "libs/ui/src/**/*.html"]
+          }
+        }
+      }
+    }
+  }
+}
